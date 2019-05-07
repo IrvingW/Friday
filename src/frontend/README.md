@@ -1,6 +1,6 @@
 # friday
 
-> A kubernetes clusters management web application.
+> The frontend part of a web based kubernetes clusters management application.
 
 ## Build Setup
 
