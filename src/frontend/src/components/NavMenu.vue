@@ -4,12 +4,9 @@
 
 		<el-col :span="6">
 			<div class="grid-content lgout-options">
-				<div v-if="loginOrNot" >
-					<el-button type="text" @click="logout"><i class="el-icon-back "></i> 退出</el-button>
-				</div>
-				<div v-else>
-					<router-link to="/login">登录</router-link>
-					<router-link to="/register">注册</router-link>
+				<div>
+					<el-link icon="el-icon-view">欢迎您，{{user_name}}   </el-link>
+					<el-link icon="el-icon-back">退出登陆</el-link>
 				</div>
 
 			</div>
@@ -22,11 +19,38 @@
   	name:"navmenu",
   	data(){
   		return {
-  			loginOrNot: false
+				user_name: ""
   		}
   	},
   	methods:{
-  	}
+			logout(){
+
+        this.$router.push({path:'/login'})
+			}
+		},
+    created(){
+			var loginUser = ""
+      var cookies = document.cookie.split(';');
+      for(var i=0; i<cookies.length; i++)
+      {
+        var cookie = cookies[i].trim();
+	      if (cookie.indexOf("user_name")==0)
+	       loginUser = c.substring("user_name".length,cookie.length);
+      }
+
+      if(loginUser==""){
+				// not login
+				// this.$http.get("https://jsonplaceholder.typicode.com/todos/1")
+				// 	.then(response => response.json())
+				// 	.then(body => {
+				// 		body.userId
+				// })
+        // this.$router.push({path:'/login'})
+       }else{
+				this.user_name = loginUser
+			}
+    },
+
   }
 </script>
 
@@ -49,9 +73,6 @@
 	}
   	.el-row {
       margin-bottom: 20px;
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
 
 	.grid-content {
