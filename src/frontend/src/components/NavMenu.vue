@@ -6,7 +6,7 @@
 			<div class="grid-content lgout-options">
 				<div>
 					<el-link icon="el-icon-view">欢迎您，{{user_name}}   </el-link>
-					<el-link icon="el-icon-back">退出登陆</el-link>
+					<el-link icon="el-icon-back" @click="logout">退出登陆</el-link>
 				</div>
 
 			</div>
@@ -19,37 +19,50 @@
   	name:"navmenu",
   	data(){
   		return {
-				user_name: ""
+				user_name: "",
+				logout_url: "http://localhost:8080/api/user/logout"
   		}
   	},
   	methods:{
 			logout(){
-
-        this.$router.push({path:'/login'})
+				this.$http.get(this.logout_url).then(
+					(response) => {
+					  if (response.status != 200){
+						  this.$notify.error({
+							  title: '请求失败',
+							  message: '请求发送失败，请联系管理员'
+						  })
+					  }else{
+						  var body = response.body
+						  if (body.Rtn == 0){
+							  this.$notify({
+									 title: '成功',
+									 message: '退出登陆成功',
+                   type: 'success'
+							  });
+							  // set cookie
+							  this.$cookies.remove("user_name")
+							  // redirect to index page
+							  this.$router.push({path: "/login"})
+						  }else{
+							  this.$notify.error({
+								  title: '失败',
+                   message: body.Msg
+							   })
+						  }
+						}
+					}
+				)
 			}
 		},
-    created(){
-			var loginUser = ""
-      var cookies = document.cookie.split(';');
-      for(var i=0; i<cookies.length; i++)
-      {
-        var cookie = cookies[i].trim();
-	      if (cookie.indexOf("user_name")==0)
-	       loginUser = c.substring("user_name".length,cookie.length);
-      }
-
-      if(loginUser==""){
-				// not login
-				// this.$http.get("https://jsonplaceholder.typicode.com/todos/1")
-				// 	.then(response => response.json())
-				// 	.then(body => {
-				// 		body.userId
-				// })
-        // this.$router.push({path:'/login'})
-       }else{
-				this.user_name = loginUser
-			}
-    },
+      created(){
+        if(!this.$cookies.isKey("user_name")){
+				  // not login
+          this.$router.push({path:'/login'})
+         }else{
+				  this.user_name = this.$cookies.get("user_name")
+			  }
+      },
 
   }
 </script>

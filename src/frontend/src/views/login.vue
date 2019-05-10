@@ -66,9 +66,12 @@
 						var body = response.body
 						if (body.Rtn == 0){
 							this.$notify({
-                 title: '登陆成功',
+								 title: '登陆成功',
+								 message: '欢迎你，' + this.login.username,
                  type: 'success'
 							});
+							// set cookie
+							this.$cookies.set("user_name", this.login.username, 3600)
 							// redirect to index page
 							this.$router.push({path: "/"})
 						}else{
@@ -76,13 +79,10 @@
 								title: '登陆失败',
                  message: body.Msg
 							 })
-							 resetForm('login')
 						}
 					}
 				})
-				this.login.username
-			},
-
+			}
 	  }
 	}
 </script>

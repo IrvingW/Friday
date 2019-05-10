@@ -28,12 +28,11 @@ func (c* UserController) Login() {
 	o := orm.NewOrm()
 	user := models.User{}
 	err := o.QueryTable("user").Filter("user_name", user_name).One(&user)
-	if err != nil{
+	if err == nil{
 		// query success
 		if password == user.Password{
 			// password correct
-			c.SetSession("user_name", user_name)
-			c.Ctx.SetCookie("user_name", user_name)
+			c.SetSession("user_id", user.Id)
 			c.Data["json"] = &JSONStruct{0, "ok"}
 			c.ServeJSON()
 			return
@@ -46,17 +45,9 @@ func (c* UserController) Login() {
 }
 
 func (c* UserController) Logout() {
-	user := c.GetSession("user_name")
-	if user == nil {
-		c.Data["json"] = &JSONStruct{0, "no such session"}
-		c.ServeJSON()
-	}else{
-		// delete session and cookie
-		c.DelSession("user_name")
-		c.Ctx.SetCookie("user_name", "whatever", -1)
-		c.Data["json"] = &JSONStruct{0, "ok"}
-		c.ServeJSON()
-	}
+	c.DelSession("user_id")
+	c.Data["json"] = &JSONStruct{0, "ok"}
+	c.ServeJSON()
 	return
 }
 
