@@ -66,22 +66,52 @@
 	        		{min:1,message:'密码不能为空',trigger:'blur'},
 							{validator: validatePass2, trigger: 'blur'}
 						]
-	        }
+					},
+					register_url: "http://localhost:8080/api/user/register"
 	      }
 		},
 		methods: {
-			logIn(){
-				this.login.username
-			},
 			resetForm(formName) {
 				this.$refs[formName].resetFields();
 			},
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid){
-						alert(this.registerForm.username)
+						this.$http.post(
+							this.register_url,
+							this.registerForm,
+							{emulateJSON:true}
+						).then((response) => {
+							if (response.status != 200){
+								this.$notify.error({
+									title: '请求失败',
+									message: '请求发送失败，请联系管理员'
+								})
+							}
+							var body = response.body
+							if (body.Rtn == 0){
+								this.$notify({
+                  title: '注册成功',
+                  message: '注册成功，请转至登陆界面登陆',
+                  type: 'success'
+								});
+								this.$router.push({path: "/login"})
+							}else if (body.Rtn < 0){
+								this.$notify.error({
+									title: '注册失败',
+                  message: body.Msg
+                });
+							}else {
+								this.$notify({
+									title: '注册失败',
+									message: body.Msg,
+									type: 'warning'
+								})
+							}
+						})
 					}else{
 						alert("请正确填写表单之后再提交！")
+						resetForm('registerForm')
 					}
 				})
 			}

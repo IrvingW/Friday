@@ -47,11 +47,39 @@
 	        		{required:true,message:'请输入密码',trigger:'blur'},
 	        		{min:1,message:'密码不能为空',trigger:'blur'}
 	        	]
-	        }
+					},
+					login_url: 'http://localhost:8080/api/user/login'
 	      }
 		},
 		methods: {
+			resetForm(formName) {
+				this.$refs[formName].resetFields();
+			},
 			logIn(){
+				this.$http.post(this.login_url, this.login, {emulateJSON: true}).then((response) => {
+					if (response.status != 200){
+						this.$notify.error({
+							title: '请求失败',
+							message: '请求发送失败，请联系管理员'
+						})
+					}else{
+						var body = response.body
+						if (body.Rtn == 0){
+							this.$notify({
+                 title: '登陆成功',
+                 type: 'success'
+							});
+							// redirect to index page
+							this.$router.push({path: "/"})
+						}else{
+							this.$notify.error({
+								title: '登陆失败',
+                 message: body.Msg
+							 })
+							 resetForm('login')
+						}
+					}
+				})
 				this.login.username
 			},
 
