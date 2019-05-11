@@ -5,47 +5,25 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
-      :router="isActive"
+      router=true
+      default-active="/friday/home/index"
     >
-
-      <el-menu-item index="/uploadfile">
-        <i class="el-icon-upload2"></i>
-        <span slot="title">本地上传</span>
+      <el-menu-item index="/friday/home/index">
+        <i class="el-icon-s-home"></i>
+        <span slot="title">首页</span>
       </el-menu-item>
-      <el-menu-item index="/remotedownload">
-        <i class="el-icon-upload"></i>
-        <span slot="title">远端上传</span>
+      <el-menu-item index="/friday/home/cluster_view">
+        <i class="el-icon-menu"></i>
+        <span slot="title">集群视图</span>
       </el-menu-item>
-      <el-menu-item index="/filesearch">
-        <i class="el-icon-message"></i>
-        <span slot="title">文件查看</span>
+      <el-menu-item index="/friday/home/task_view">
+        <i class="el-icon-s-order"></i>
+        <span slot="title">任务中心</span>
       </el-menu-item>
-      <!--<el-menu-item index="/metadata">-->
-        <!--<i class="el-icon-tickets"></i>-->
-        <!--<span slot="title">元数据管理</span>-->
-      <!--</el-menu-item>-->
-      <!--<el-menu-item index="/conceptLayer">-->
-        <!--<i class="el-icon-tickets"></i>-->
-        <!--<span slot="title">概念层业务元数据管理</span>-->
-      <!--</el-menu-item>-->
-      <!--<el-menu-item index="/logicLayer">-->
-        <!--<i class="el-icon-tickets"></i>-->
-        <!--<span slot="title">逻辑层业务元数据管理</span>-->
-      <!--</el-menu-item>-->
-      <!--<el-menu-item index="/physicsLayer">-->
-        <!--<i class="el-icon-tickets"></i>-->
-        <!--<span slot="title">物理层元数据管理</span>-->
-      <!--</el-menu-item>-->
-      <el-menu-item index="/handledata">
-        <i class="el-icon-printer"></i>
-        <span slot="title">处理入库</span>
+      <el-menu-item index="/friday/home/template_view">
+        <i class="el-icon-s-tools"></i>
+        <span slot="title">模板管理</span>
       </el-menu-item>
-      <el-menu-item index="/inquire">
-        <i class="el-icon-view"></i>
-        <span slot="title">查询数据</span>
-      </el-menu-item>
-
-
     </el-menu>
   </div>
 </template>
@@ -55,12 +33,9 @@
     name: 'sidebar',
     data() {
       return {
-        isActive: true,
-
       }
     },
     created() {
-
     },
   }
 </script>

@@ -5,7 +5,7 @@
 		<el-col :span="6">
 			<div class="grid-content lgout-options">
 				<div>
-					<el-link icon="el-icon-view">欢迎您，{{user_name}}   </el-link>
+					<el-link icon="el-icon-user-solid">欢迎您，{{user_name}}         </el-link>
 					<el-link icon="el-icon-back" @click="logout">退出登陆</el-link>
 				</div>
 
@@ -20,7 +20,8 @@
   	data(){
   		return {
 				user_name: "",
-				logout_url: "http://localhost:8080/api/user/logout"
+				logout_url: "http://localhost:8080/api/user/logout",
+				if_login_url: "http://localhost:8080/api/user/if_login"
   		}
   	},
   	methods:{
@@ -54,15 +55,40 @@
 					}
 				)
 			}
-		},
-      created(){
-        if(!this.$cookies.isKey("user_name")){
-				  // not login
-          this.$router.push({path:'/login'})
-         }else{
-				  this.user_name = this.$cookies.get("user_name")
-			  }
-      },
+    },
+		created: function() {
+       if(!this.$cookies.isKey("user_name")){
+				 console.log(this.if_login_url)
+				 this.$http.get(this.if_login_url).then(
+					 (response) => {
+				 console.log("haha")
+					   if (response.status != 200){
+						   this.$notify.error({
+							   title: '请求失败',
+							   message: '登陆信息获取失败，请联系管理员'
+						   })
+					   }else{
+						   var body = response.body
+						   if (body.Rtn == 0){
+								 if (body.Username == ""){
+							     // remove cookie
+							     this.$cookies.remove("user_name")
+							     // redirect to index page
+									this.$router.push({path: "/friday/login"})
+								 }else {
+									 //logged in but cookie is expired
+							     // reset cookie
+							     this.$cookies.set("user_name", body.Username, 600)
+								 }
+						   }else{
+						   }
+						 }
+					}
+				)
+			} else{
+				 this.user_name = this.$cookies.get("user_name")
+			 }
+     }
 
   }
 </script>

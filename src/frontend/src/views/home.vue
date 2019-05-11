@@ -9,7 +9,7 @@
       </el-aside>
       <el-container>
         <el-main class="main">
-          <Content></Content>
+          <router-view></router-view>
         </el-main>
       </el-container>
 
@@ -18,11 +18,10 @@
 </template>
 <script type="text/javascript">
   import NavMenu from '@/components/NavMenu'
-  import Content from '@/components/Content'
   import Sidebar from '@/components/Sidebar'
   export default {
-    name: 'manage',
-    components: {NavMenu,Content,Sidebar}
+    name: 'Home',
+    components: {NavMenu,Sidebar}
   }
 </script>
 <style type="text/css" scoped>
