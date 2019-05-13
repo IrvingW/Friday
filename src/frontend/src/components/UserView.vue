@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>cluster</h1>
+      <h1>user</h1>
   </div>
 </template>
 <script>

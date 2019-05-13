@@ -6,7 +6,7 @@
 			<div class="grid-content lgout-options">
 				<div>
 					<el-link icon="el-icon-user-solid" @click="showUserView">欢迎您，{{user_name}}         </el-link>
-					<el-link icon="el-icon-back" @click="logout">退出登陆</el-link>
+					<el-link icon="el-icon-s-promotion" @click="logout">退出登陆</el-link>
 				</div>
 
 			</div>
@@ -44,7 +44,7 @@
 							  // set cookie
 							  this.$cookies.remove("user_name")
 							  // redirect to index page
-							  this.$router.push({path: "/login"})
+							  this.$router.push({path: "/friday/login"})
 						  }else{
 							  this.$notify.error({
 								  title: '失败',
@@ -110,7 +110,7 @@
 	 }
 	.lgout-options{
 	  	text-align: right;
-	  	padding-right: 20px;
+	  	padding-right: 40px;
 
 	}
   	.el-row {
