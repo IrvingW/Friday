@@ -1,11 +1,11 @@
 <template>
   <div>
-      <h1>task</h1>
+      <h1>user</h1>
   </div>
 </template>
 <script>
   export default {
-	name:'task_view',
+	name:'user_view',
 	  data(){
 		return{
 		}

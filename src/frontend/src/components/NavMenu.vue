@@ -5,7 +5,7 @@
 		<el-col :span="6">
 			<div class="grid-content lgout-options">
 				<div>
-					<el-link icon="el-icon-user-solid">欢迎您，{{user_name}}         </el-link>
+					<el-link icon="el-icon-user-solid" @click="showUserView">欢迎您，{{user_name}}         </el-link>
 					<el-link icon="el-icon-back" @click="logout">退出登陆</el-link>
 				</div>
 
@@ -54,6 +54,9 @@
 						}
 					}
 				)
+			},
+			showUserView(){
+        this.$router.push('/friday/home/user_view')
 			}
     },
 		created: function() {

@@ -1,11 +1,11 @@
 <template>
   <div>
-      <h1>task</h1>
+      <h1>machine</h1>
   </div>
 </template>
 <script>
   export default {
-	name:'task_view',
+	name:'machine_view',
 	  data(){
 		return{
 		}

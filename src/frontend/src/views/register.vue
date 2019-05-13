@@ -95,7 +95,7 @@
                   message: '注册成功，请转至登陆界面登陆',
                   type: 'success'
 								});
-								this.$router.push({path: "/login"})
+								this.$router.push({path: "/friday/login"})
 							}else if (body.Rtn < 0){
 								this.$notify.error({
 									title: '注册失败',

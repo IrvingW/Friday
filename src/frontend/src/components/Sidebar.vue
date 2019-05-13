@@ -6,7 +6,7 @@
       text-color="#fff"
       active-text-color="#ffd04b"
       router=true
-      default-active="/friday/home/index"
+      :default-active="$route.path"
     >
       <el-menu-item index="/friday/home/index">
         <i class="el-icon-s-home"></i>
@@ -20,9 +20,13 @@
         <i class="el-icon-s-order"></i>
         <span slot="title">任务中心</span>
       </el-menu-item>
-      <el-menu-item index="/friday/home/template_view">
+      <el-menu-item index="/friday/home/image_view">
         <i class="el-icon-s-tools"></i>
-        <span slot="title">模板管理</span>
+        <span slot="title">镜像管理</span>
+      </el-menu-item>
+      <el-menu-item index="/friday/home/user_view">
+        <i class="el-icon-user-solid"></i>
+        <span slot="title">用户中心</span>
       </el-menu-item>
     </el-menu>
   </div>

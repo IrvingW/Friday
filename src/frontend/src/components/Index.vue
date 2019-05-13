@@ -43,10 +43,10 @@
               <el-col :span="8">
                   <el-card shadow="always">
                     <el-row>
-                      <el-col> <p>任务模板：</p> </el-col>
+                      <el-col> <p>镜像数量：</p> </el-col>
                     </el-row>
                     <el-row type="flex" justify="center">
-                      <el-col :span="8"> <el-link class="highlight-char" @click="showTemplateView">{{ template_cnt }}</el-link> </el-col>
+                      <el-col :span="8"> <el-link class="highlight-char" @click="showImageView">{{ image_cnt }}</el-link> </el-col>
                     </el-row>
                   </el-card>
               </el-col>
@@ -66,7 +66,7 @@
 		  return{
         cluster_cnt: 0,
         task_cnt: 0,
-        template_cnt: 0
+        image_cnt: 0
 		  }
     },
     methods: {
@@ -76,11 +76,11 @@
       showTaskView(){
         this.$router.push('/friday/home/task_view')
       },
-      showTemplateView(){
-        this.$router.push('/friday/home/template_view')
-      }
+      showImageView(){
+        this.$router.push('/friday/home/image_view')
+      },
     }
-  }
+    }
 </script>
 <style type="text/css" scoped>
   .el-row {

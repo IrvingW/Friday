@@ -15,7 +15,7 @@
 					<el-divider><i class="el-icon-lock"></i></el-divider>
 			    <el-row type="flex" justify="space-between">
 			  	  <el-col :span="12" class="text-right">
-			  		  <router-link to="/register" class="el-link" type="primary">没有账号，前往注册</router-link>
+			  		  <router-link to="/friday/register" class="el-link" type="primary">没有账号，前往注册</router-link>
 			  	  </el-col>
 			    </el-row>
 			    <el-form-item>
