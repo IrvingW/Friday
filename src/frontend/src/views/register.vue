@@ -83,27 +83,23 @@
 							{emulateJSON:true}
 						).then((response) => {
 							if (response.status != 200){
-								this.$notify.error({
-									title: '请求失败',
+								this.$message.error({
 									message: '请求发送失败，请联系管理员'
 								})
 							}
 							var body = response.body
 							if (body.Rtn == 0){
-								this.$notify({
-                  title: '注册成功',
+								this.$message({
                   message: '注册成功，请转至登陆界面登陆',
                   type: 'success'
 								});
 								this.$router.push({path: "/friday/login"})
 							}else if (body.Rtn < 0){
-								this.$notify.error({
-									title: '注册失败',
+								this.$message.error({
                   message: body.Msg
                 });
 							}else {
-								this.$notify({
-									title: '注册失败',
+								this.$message({
 									message: body.Msg,
 									type: 'warning'
 								})

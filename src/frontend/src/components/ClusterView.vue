@@ -60,7 +60,16 @@
                 </el-tabs>
               </el-col>
               <el-col :span="2" :offset="1">
-                <el-button type="success" round icon="el-icon-s-order">显示集群列表</el-button>
+                <el-row class="button_row">
+                  <el-col>
+                    <el-button type="primary" round icon="el-icon-s-order" @click="showClusterList">集群列表</el-button>
+                  </el-col>
+                </el-row>
+                <el-row class="button_row">
+                  <el-col>
+                    <el-button type="success" round icon="el-icon-folder-add" @click="addCluster">添加集群</el-button>
+                  </el-col>
+                </el-row>
               </el-col>
             </el-row>
           </el-card>
@@ -77,26 +86,45 @@
 	  data(){
 		  return{
         history: {
-          columns: ['日期', '集群数量', '机器数量', '执行任务数量'],
+          columns: ['date', '集群数量', '机器数量', '执行任务数'],
           rows: [
+            {'date': "5-5", '执行任务数': '3', '集群数量': 1, '机器数量':2},
+            {'date': "5-6", '执行任务数': '2', '集群数量': 1, '机器数量':2},
+            {'date': "5-7", '执行任务数': '4', '集群数量': 1, '机器数量':2},
+            {'date': "5-8", '执行任务数': '5', '集群数量': 1, '机器数量':2},
+            {'date': "5-9", '执行任务数': '2', '集群数量': 1, '机器数量':2},
+            {'date': "5-10", '执行任务数': '4', '集群数量': 1, '机器数量':2},
           ]
         },
         today: {
-          columns: ['状态', '集群数量'],
+          columns: ['status', 'cnt'],
           rows: [
-            {'状态': "健康", '集群数量': 1},
-            {'状态': "未定", '集群数量': 1},
-            {'状态': "异常", '集群数量': 1}
+            {'status': "健康集群", 'cnt': 1},
+            {'status': "未定", 'cnt': 1},
+            {'status': "异常集群", 'cnt': 1}
             ]
         },
         tableData: [
+          {name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1},
+          {name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1},
           {name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1}
         ]
 		  }
     },
     created: function() {
+    },
+    methods: {
+      showClusterList(){
+        this.$router.push('/friday/home/cluster_list')
+      },
+      addCluster(){
+        this.$router.push('/friday/home/add_cluster')
+      }
     }
   }
 </script>
 <style type="text/css" scoped>
+.button_row {
+  margin-top: 30px;
+}
 </style>

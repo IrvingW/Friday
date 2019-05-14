@@ -17,7 +17,7 @@
           </el-carousel-item>
         </el-carousel>
 
-        <el-row :gutter="30" id="footer">
+        <el-row :gutter="50" id="footer">
           <el-col :span="10">
             <el-row :gutter="15">
               <el-col :span="8">
@@ -53,7 +53,9 @@
             </el-row>
           </el-col>
           <!-- 处理任务数量曲线图表 -->
-          <el-col :span="14"><div class="grid-content bg-purple"></div></el-col>
+          <el-col :span="13">
+            <ve-line :data="chartData"></ve-line>
+          </el-col>
         </el-row>
       </el-main>
     </el-container>
@@ -66,7 +68,17 @@
 		  return{
         cluster_cnt: 0,
         task_cnt: 0,
-        image_cnt: 0
+        image_cnt: 0,
+        chartData: {
+          columns: ['date', '执行任务数', '集群数量', '镜像数量', '用户访问量'],
+          rows: [
+            {'date': "5-5", '执行任务数': '0', '集群数量': 1, '镜像数量': 2, '用户访问量':3},
+            {'date': "5-6", '执行任务数': '0', '集群数量': 1, '镜像数量': 2, '用户访问量':2},
+            {'date': "5-7", '执行任务数': '0', '集群数量': 1, '镜像数量': 2, '用户访问量':1},
+            {'date': "5-8", '执行任务数': '0', '集群数量': 1, '镜像数量': 2, '用户访问量':3},
+            {'date': "5-9", '执行任务数': '0', '集群数量': 1, '镜像数量': 2, '用户访问量':4},
+          ]
+        }
 		  }
     },
     methods: {

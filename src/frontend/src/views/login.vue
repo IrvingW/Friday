@@ -58,16 +58,14 @@
 			logIn(){
 				this.$http.post(this.login_url, this.login, {emulateJSON: true}).then((response) => {
 					if (response.status != 200){
-						this.$notify.error({
-							title: '请求失败',
+						this.$message.error({
 							message: '请求发送失败，请联系管理员'
 						})
 					}else{
 						var body = response.body
 						if (body.Rtn == 0){
-							this.$notify({
-								 title: '登陆成功',
-								 message: '欢迎你，' + this.login.username,
+							this.$message({
+								 message: '登陆成功		' + '欢迎你，' + this.login.username,
                  type: 'success'
 							});
 							// set cookie
@@ -75,8 +73,7 @@
 							// redirect to index page
 							this.$router.push({path: "/"})
 						}else{
-							this.$notify.error({
-								title: '登陆失败',
+							this.$message.error({
                  message: body.Msg
 							 })
 						}

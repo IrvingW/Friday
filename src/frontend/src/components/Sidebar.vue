@@ -5,21 +5,45 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
-      router=true
+      :router="router"
       :default-active="$route.path"
     >
       <el-menu-item index="/friday/home/index">
         <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
-      <el-menu-item index="/friday/home/cluster_view">
-        <i class="el-icon-menu"></i>
-        <span slot="title">集群视图</span>
-      </el-menu-item>
-      <el-menu-item index="/friday/home/task_view">
-        <i class="el-icon-s-order"></i>
-        <span slot="title">任务中心</span>
-      </el-menu-item>
+      <el-submenu index="">
+        <template slot="title">
+          <i class="el-icon-upload"></i>
+          <span slot="title">集群视图</span>
+        </template>
+        <el-menu-item index="/friday/home/cluster_view">
+          <i class="el-icon-menu"></i>
+          <span slot="title">概览</span>
+        </el-menu-item>
+        <el-menu-item index="/friday/home/cluster_list">
+          <i class="el-icon-s-order"></i>
+          <span slot="title">集群列表</span>
+        </el-menu-item>
+        <el-menu-item index="/friday/home/add_cluster">
+          <i class="el-icon-folder-add"></i>
+          <span slot="title">添加集群</span>
+        </el-menu-item>
+        <el-menu-item index="/friday/home/node_view">
+          <i class="el-icon-s-platform"></i>
+          <span slot="title">节点列表</span>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="">
+        <template slot="title">
+          <i class="el-icon-s-claim"></i>
+          <span slot="title">任务中心</span>
+        </template>
+        <el-menu-item index="/friday/home/task_list">
+          <i class="el-icon-document-copy"></i>
+          <span slot="title">任务列表</span>
+        </el-menu-item>
+      </el-submenu>
       <el-menu-item index="/friday/home/image_view">
         <i class="el-icon-s-tools"></i>
         <span slot="title">镜像管理</span>
@@ -37,6 +61,7 @@
     name: 'sidebar',
     data() {
       return {
+        router: true
       }
     },
     created() {

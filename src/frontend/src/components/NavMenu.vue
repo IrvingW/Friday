@@ -29,15 +29,13 @@
 				this.$http.get(this.logout_url).then(
 					(response) => {
 					  if (response.status != 200){
-						  this.$notify.error({
-							  title: '请求失败',
+						  this.$message.error({
 							  message: '请求发送失败，请联系管理员'
 						  })
 					  }else{
 						  var body = response.body
 						  if (body.Rtn == 0){
-							  this.$notify({
-									 title: '成功',
+							  this.$message({
 									 message: '退出登陆成功',
                    type: 'success'
 							  });
@@ -46,8 +44,7 @@
 							  // redirect to index page
 							  this.$router.push({path: "/friday/login"})
 						  }else{
-							  this.$notify.error({
-								  title: '失败',
+							  this.$message.error({
                    message: body.Msg
 							   })
 						  }
@@ -66,8 +63,7 @@
 					 (response) => {
 				 console.log("haha")
 					   if (response.status != 200){
-						   this.$notify.error({
-							   title: '请求失败',
+						   this.$message.error({
 							   message: '登陆信息获取失败，请联系管理员'
 						   })
 					   }else{

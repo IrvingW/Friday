@@ -6,10 +6,18 @@ import LogInView from '@/views/login'
 import RegisterView from '@/views/register'
 import IndexView from '@/components/Index'
 import UserView from '@/components/UserView'
-import TaskView from '@/components/TaskView'
+import TaskList from '@/components/TaskList'
 import ClusterView from '@/components/ClusterView'
 import ImageView from '@/components/ImageView'
 import MachineView from '@/components/MachineView'
+import ClusterList from '@/components/ClusterList'
+import NodeView from '@/components/NodeView'
+import AddCluster from '@/components/AddCluster'
+import AddMachine from '@/components/AddMachine'
+import ConfigCluster from '@/components/ConfigCluster'
+import ConfigKube from '@/components/ConfigKube'
+import Done from '@/components/Done'
+
 
 Vue.use(Router)
 
@@ -31,6 +39,14 @@ export default new Router({
       redirect: '/friday/home/index'
     },
     {
+      path: '/friday',
+      redirect: '/friday/home/index'
+    },
+    {
+      path: '/friday/home',
+      redirect: '/friday/home/index'
+    },
+    {
       path: '/friday/home',
       name: 'home',
       component: HomeView,
@@ -44,8 +60,42 @@ export default new Router({
           component: ClusterView
         },
         {
-          path: 'task_view',
-          component: TaskView
+          path: 'cluster_list',
+          component: ClusterList
+        },
+        {
+          path: 'add_cluster',
+          component: AddCluster,
+          children: [
+            {
+              path: '',
+              redirect: '/friday/home/add_cluster/master'
+            },
+            {
+              path: 'master',
+              component: AddMachine
+            },
+            {
+              path: 'kube_config',
+              component: ConfigKube
+            },
+            {
+              path: 'cluster_config',
+              component: ConfigCluster
+            },
+            {
+              path: 'done',
+              component: Done
+            }
+          ]
+        },
+        {
+          path: 'task_list',
+          component: TaskList
+        },
+        {
+          path: 'node_view',
+          component: NodeView
         },
         {
           path: 'image_view',
