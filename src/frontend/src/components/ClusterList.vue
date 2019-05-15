@@ -53,20 +53,20 @@
 	name:'cluster_list',
 	  data(){
 		return{
-            columns: [
-                {id: "name", label: "集群名称", "width": 150},
-                {id: "create_time", label: "创建时间", "width": 150},
-                {id: "description", label: "描述", "width": 330},
-                {id: "node_cnt", label: "节点数量", "width": 120},
-                {id: "submit_task", label: "历史任务", "width": 120},
-                {id: "running_task", label: "正在运行", "width": 120},
-            ],
-            cluster_list: [
-                {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-                {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-                {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-                {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-            ]
+      columns: [
+          {id: "name", label: "集群名称", "width": 150},
+          {id: "create_time", label: "创建时间", "width": 150},
+          {id: "description", label: "描述", "width": 330},
+          {id: "node_cnt", label: "节点数量", "width": 120},
+          {id: "submit_task", label: "历史任务", "width": 120},
+          {id: "running_task", label: "正在运行", "width": 120},
+      ],
+      cluster_list: [
+          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
+          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
+          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
+          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
+      ]
 		}
     },
     methods: {

@@ -17,6 +17,9 @@ import AddMachine from '@/components/AddMachine'
 import ConfigCluster from '@/components/ConfigCluster'
 import ConfigKube from '@/components/ConfigKube'
 import Done from '@/components/Done'
+import CreateTask from '@/components/CreateTask'
+import UploadImage from '@/components/UploadImage'
+import ImageList from '@/components/ImageList'
 
 
 Vue.use(Router)
@@ -94,12 +97,24 @@ export default new Router({
           component: TaskList
         },
         {
+          path: 'create_task',
+          component: CreateTask
+        },
+        {
           path: 'node_view',
           component: NodeView
         },
         {
+          path: 'image_list',
+          component: ImageList
+        },
+        {
           path: 'image_view',
           component: ImageView
+        },
+        {
+          path: 'upload_image',
+          component: UploadImage
         },
         {
           path: 'user_view',

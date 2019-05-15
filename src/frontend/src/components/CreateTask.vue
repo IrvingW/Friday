@@ -14,8 +14,8 @@
                 <el-row>
                     <el-col :span="18">
                         <el-steps align-center :active="stepActive" finish-status="success">
-                          <el-step title="步骤1" description="与Master节点建立连接"></el-step>
-                          <el-step title="步骤3" description="配置Kubernetes环境"></el-step>
+                          <el-step title="步骤1" description="选择集群"></el-step>
+                          <el-step title="步骤3" description=""></el-step>
                           <el-step title="步骤2" description="配置集群属性"></el-step>
                           <el-step title="步骤4" description="完成"></el-step>
                         </el-steps>
