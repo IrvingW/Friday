@@ -31,6 +31,21 @@
                 </el-upload>
               </el-col>
             </el-row>
+            <el-row :gutter="10" style="margin-top: 30px">
+              <el-col :span="2" :offset="1">
+                <span>上传封面:</span>
+              </el-col>
+              <el-col :span="12">
+                <el-upload
+                  class="avatar-uploader"
+                  action="http://localhost:8080/api/picture/save"
+                  :show-file-list="false"
+                  :on-success="changeImageUrl">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+              </el-col>
+            </el-row>
             <el-row style="margin-top: 40px">
                 <el-col :span="10" :offset="1">
                     <el-form :model="imageInfo" status-icon :rules="rules" ref="imageInfo" label-width="100px">
@@ -67,7 +82,22 @@
                   :limit=1>
                   <i class="el-icon-upload"></i>
                   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                  <div class="el-upload__tip" slot="tip">只能上传tar文件</div>
+                  <div class="el-upload__tip" slot="tip">只能上传.zip压缩文件</div>
+                </el-upload>
+              </el-col>
+            </el-row>
+            <el-row :gutter="10" style="margin-top: 30px">
+              <el-col :span="2" :offset="1">
+                <span>上传封面:</span>
+              </el-col>
+              <el-col :span="12">
+                <el-upload
+                  class="avatar-uploader"
+                  action="http://localhost:8080/api/picture/save"
+                  :show-file-list="false"
+                  :on-success="changeImageUrl">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-col>
             </el-row>
@@ -104,7 +134,7 @@
 	name:'upload_image',
 	  data(){
 		  return{
-        uploadFileName: "",
+        uploadFilePath: "",
         imageInfo: {
           repo_name: "",
           tag_name: ""
@@ -116,13 +146,36 @@
           tag_name: [
             { required: true, message: '镜像标签名不能为空', trigger: 'blur' }
           ],
-        }
+        },
+        imageUrl: ""
 		  }
     },
     methods: {
       changeFileName(response, file) {
-        uploadFileName = response.body.FileName
-        console.log(uploadFileName)
+				if (response.Rtn == 0){
+          this.uploadFilePath = response.PictureName
+					this.$message({
+							message: "文件上传成功",
+               type: 'success'
+					});
+				}else{
+					this.$message.error({
+               message: response.Msg
+						})
+				}
+      },
+      changeImageUrl(response, file) {
+				if (response.Rtn == 0){
+          this.imageUrl = "http://localhost:8080/api/picture/show?picture_name=" + response.PictureName
+					this.$message({
+							message: "文件上传成功",
+               type: 'success'
+					});
+				}else{
+					this.$message.error({
+               message: response.Msg
+						})
+				}
       },
       uploadFileError(err, file) {
         this.$message.error('文件上传失败');
@@ -146,4 +199,28 @@
   }
 </script>
 <style type="text/css" scoped>
+  .avatar-uploader {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 190px;
+  }
+  .avatar-uploader:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>
