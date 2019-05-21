@@ -23,6 +23,11 @@
                             <i slot="prefix" class="el-icon-key"></i>
                         </el-input>
                       </el-form-item>
+                      <el-form-item label="端口" prop="port">
+                        <el-input v-model="machineKey.port" autocomplete="off" placeholder="请输入ssh端口">
+                            <i slot="prefix" class="el-icon-s-opportunity"></i>
+                        </el-input>
+                      </el-form-item>
                       <el-form-item class="button-row">
                         <el-button type="success" @click="submitForm('machineKey')">建立连接</el-button>
                         <el-button @click="resetForm('machineKey')">重置</el-button>
@@ -49,6 +54,7 @@
                 ip: '',
                 user_name: '',
                 password: '',
+                port: 22
             },
             rules: {
               user_name: [
@@ -60,6 +66,9 @@
               ip: [
                 { required: true, message: 'IP不能为空', trigger: 'blur' }
               ],
+              port: [
+                { required: true, message: '端口不能为空', trigger: 'blur'}
+              ]
             }
 		}
     },

@@ -7,9 +7,6 @@
             <el-image
               style="width: 100px; height: 100px"
               :src="src" fit="cover">
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div>
             </el-image>
           </el-col>
           <el-col :span="14" style="margin-left: 20px">
@@ -60,6 +57,11 @@
         },
         image_id: {
         }
+    },
+    methods: {
+      showDetail() {
+        this.$router.push('/friday/home/image_view')
+      }
     }
   }
 </script>

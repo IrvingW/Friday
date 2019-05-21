@@ -54,8 +54,8 @@
           <span slot="title">镜像管理</span>
         </template>
         <el-menu-item index="/friday/home/image_list">
-          <i class="el-icon-document-copy"></i>
-          <span slot="title">镜像列表</span>
+          <i class="el-icon-s-cooperation"></i>
+          <span slot="title">镜像仓库</span>
         </el-menu-item>
         <el-menu-item index="/friday/home/image_view">
           <i class="el-icon-info"></i>

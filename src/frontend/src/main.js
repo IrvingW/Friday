@@ -7,13 +7,16 @@ import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
 import VueCookies from 'vue-cookies'
 import VCharts from 'v-charts'
+import MavonEditor from 'mavon-editor'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'mavon-editor/dist/css/index.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueResource)
 Vue.use(VueCookies)
 Vue.use(VCharts)
+Vue.use(MavonEditor)
 
 /* eslint-disable no-new */
 new Vue({

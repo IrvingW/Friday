@@ -4,7 +4,7 @@
     <el-header height="20px">
       <!-- Header content -->
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/friday/home/task_list' }">镜像列表</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/friday/home/task_list' }">镜像仓库</el-breadcrumb-item>
         <el-breadcrumb-item> </el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
@@ -17,10 +17,14 @@
               <span>标签筛选：</span>
             </div>
             <!-- card body -->
-            <div style="margin-top: 20px">
+            <el-row style="margin-top: 10px">
               <el-checkbox v-model="checked3" label="备选项1" border size="medium"></el-checkbox>
               <el-checkbox v-model="checked4" label="备选项2" border size="medium"></el-checkbox>
-            </div>
+            </el-row>
+            <el-row style="margin-top: 10px">
+              <el-checkbox v-model="checked3" label="备选项1" border size="medium"></el-checkbox>
+              <el-checkbox v-model="checked4" label="备选项2" border size="medium"></el-checkbox>
+            </el-row>
           </el-card>
         </el-aside>
         <el-container>
