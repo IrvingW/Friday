@@ -50,26 +50,27 @@
   },
 	  data(){
 		return{
-            machineKey: {
-                ip: '',
-                user_name: '',
-                password: '',
-                port: 22
-            },
-            rules: {
-              user_name: [
-                { required: true, message: '登陆用户名不能为空', trigger: 'blur' }
-              ],
-              password: [
-                { required: true, message: '登陆密码不能为空', trigger: 'blur' }
-              ],
-              ip: [
-                { required: true, message: 'IP不能为空', trigger: 'blur' }
-              ],
-              port: [
-                { required: true, message: '端口不能为空', trigger: 'blur'}
-              ]
-            }
+      machineKey: {
+          ip: '',
+          user_name: '',
+          password: '',
+          port: 22
+      },
+      rules: {
+        user_name: [
+          { required: true, message: '登陆用户名不能为空', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '登陆密码不能为空', trigger: 'blur' }
+        ],
+        ip: [
+          { required: true, message: 'IP不能为空', trigger: 'blur' }
+        ],
+        port: [
+          { required: true, message: '端口不能为空', trigger: 'blur'}
+        ]
+      },
+      addMachineUrl: '/api/cluster/machine/add'
 		}
     },
     methods: {
@@ -77,13 +78,28 @@
         this.$refs[formName].resetFields();
       },
       connectMaster() {
-          this.$message({
-              type: 'success',
-              message: this.machineKey.ip + " 建立连接成功"
+        this.$http.post(this.addMachineUrl, this.machineKey,
+					{emulateJSON:true, withCredentials: true}).then((response) => {
+					  if (response.status != 200){
+						  this.$message.error({
+							  message: '请求发送失败，请联系管理员'
+						  })
+					  }
+					  var body = response.body
+					  if (body.Rtn == 0){
+              var master_id = body.MasterId
+              this.$emit("masterConnected", master_id)
+              this.$emit("stepChange")
+              this.$message({
+                  type: 'success',
+                  message: this.machineKey.ip + " 建立连接成功"
+              })
+					  }else {
+						  this.$message.error({
+							  message: body.Msg,
+						  })
+					  }
           })
-          var master_id = 2
-          this.$emit("stepChange")
-          this.$emit("masterConnected", master_id)
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -96,9 +112,6 @@
             return false;
           }
         });
-      },
-      changeStep() {
-        this.$emit("stepChange")
       }
     }
   }

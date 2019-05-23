@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "echarts": "^4.2.1",
     "mavon-editor": "^2.7.4",
     "v-charts": "^1.19.0",

@@ -20,13 +20,13 @@
   	data(){
   		return {
 				user_name: "",
-				logout_url: "http://localhost:8080/api/user/logout",
-				if_login_url: "http://localhost:8080/api/user/if_login"
+				logout_url: "/api/user/logout",
+				if_login_url: "/api/user/if_login"
   		}
   	},
   	methods:{
 			logout(){
-				this.$http.get(this.logout_url).then(
+				this.$http.get(this.logout_url, {withCredentials: true}).then(
 					(response) => {
 					  if (response.status != 200){
 						  this.$message.error({
@@ -59,7 +59,7 @@
 		created: function() {
        if(!this.$cookies.isKey("user_name")){
 				 console.log(this.if_login_url)
-				 this.$http.get(this.if_login_url).then(
+				 this.$http.get(this.if_login_url, {withCredentials: true}).then(
 					 (response) => {
 				 console.log("haha")
 					   if (response.status != 200){

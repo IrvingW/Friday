@@ -25,10 +25,6 @@
           <i class="el-icon-document-copy"></i>
           <span slot="title">集群列表</span>
         </el-menu-item>
-        <el-menu-item index="/friday/home/add_cluster">
-          <i class="el-icon-folder-add"></i>
-          <span slot="title">添加集群</span>
-        </el-menu-item>
         <el-menu-item index="/friday/home/node_view">
           <i class="el-icon-s-platform"></i>
           <span slot="title">节点列表</span>
@@ -53,17 +49,13 @@
           <i class="el-icon-s-tools"></i>
           <span slot="title">镜像管理</span>
         </template>
-        <el-menu-item index="/friday/home/image_list">
+        <el-menu-item index="/friday/home/repo_list">
           <i class="el-icon-s-cooperation"></i>
           <span slot="title">镜像仓库</span>
         </el-menu-item>
-        <el-menu-item index="/friday/home/image_view">
-          <i class="el-icon-info"></i>
-          <span slot="title">镜像信息</span>
-        </el-menu-item>
-        <el-menu-item index="/friday/home/upload_image">
+        <el-menu-item index="/friday/home/create_repo">
           <i class="el-icon-upload"></i>
-          <span slot="title">上传镜像</span>
+          <span slot="title">创建仓库</span>
         </el-menu-item>
       </el-submenu>
       <el-menu-item index="/friday/home/user_view">

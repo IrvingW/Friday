@@ -52,22 +52,39 @@
   export default {
 	name:'cluster_list',
 	  data(){
-		return{
-      columns: [
-          {id: "name", label: "集群名称", "width": 150},
-          {id: "create_time", label: "创建时间", "width": 150},
-          {id: "description", label: "描述", "width": 330},
-          {id: "node_cnt", label: "节点数量", "width": 120},
-          {id: "submit_task", label: "历史任务", "width": 120},
-          {id: "running_task", label: "正在运行", "width": 120},
-      ],
-      cluster_list: [
-          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-          {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-      ]
-		}
+		  return{
+        searchInput: "",
+        columns: [
+            {id: "name", label: "集群名称", "width": 150},
+            {id: "create_time", label: "创建时间", "width": 150},
+            {id: "description", label: "描述", "width": 330},
+            {id: "node_cnt", label: "节点数量", "width": 120},
+            {id: "task_cnt", label: "执行任务数量", "width": 120},
+        ],
+        cluster_list: [],
+        searchClusterUrl: '/api/cluster/search?key='
+      }
+    },
+    created: function () {
+      this.$http.get(this.searchClusterUrl, {withCredentials: true}).then((response) => {
+			  if (response.status != 200){
+				  this.$message.error({
+					  message: '请求发送失败，请联系管理员'
+				  })
+			  }
+			  var body = response.body
+			  if (body.Rtn == 0){
+          this.cluster_list = body.clusters
+          this.cluster_list.forEach(element => {
+            element.create_time = element.create_time.split("T")[0]
+            element.node_ctn = element.machines.length
+          });
+			  }else {
+				  this.$message.error({
+                message: body.Msg
+              });
+            }
+      })
     },
     methods: {
         showTaskList(cluster_id) {

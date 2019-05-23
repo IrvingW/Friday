@@ -48,7 +48,7 @@
 	        		{min:1,message:'密码不能为空',trigger:'blur'}
 	        	]
 					},
-					login_url: 'http://localhost:8080/api/user/login'
+					login_url: '/api/user/login'
 	      }
 		},
 		methods: {
@@ -56,7 +56,7 @@
 				this.$refs[formName].resetFields();
 			},
 			logIn(){
-				this.$http.post(this.login_url, this.login, {emulateJSON: true}).then((response) => {
+				this.$http.post(this.login_url, this.login, {emulateJSON: true, withCredentials: true}).then((response) => {
 					if (response.status != 200){
 						this.$message.error({
 							message: '请求发送失败，请联系管理员'
@@ -64,6 +64,9 @@
 					}else{
 						var body = response.body
 						if (body.Rtn == 0){
+							this.$http.get('/api/user/if_login', {withCredentials: true}).then((response) => {
+								console.log(response)
+							})
 							this.$message({
 								 message: '登陆成功		' + '欢迎你，' + this.login.username,
                  type: 'success'

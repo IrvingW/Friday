@@ -115,9 +115,10 @@
           </el-tabs>
         </el-card>
         <el-dialog title="选择授权给该用户使用集群" :visible.sync="dialogFormVisible">
-          <el-form :model="form">
-            <el-form-item label="授权集群" :label-width="formLabelWidth">
-                <el-select v-model="form.clusters" multiple placeholder="请选择要授权的集群" :clearable="true" size="medium">
+          <el-checkbox v-model="createAdmin" @change="switchAdmin">创建管理员</el-checkbox>
+          <el-form :model="form" style="margin-top: 15px">
+            <el-form-item label="授权集群">
+                <el-select v-model="form.clusters" multiple placeholder="请选择要授权的集群" :clearable="true" size="medium" :disabled="selectDisable">
                   <el-option
                     v-for="cluster in clusters"
                     :key="cluster.id"
@@ -128,8 +129,8 @@
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="resetForm()">取 消</el-button>
-            <el-button type="primary" @click="submitForm()">确 定</el-button>
+            <el-button @click="resetForm">取 消</el-button>
+            <el-button type="primary" @click="submitForm">确 定</el-button>
           </div>
         </el-dialog>
     </el-main>
@@ -143,6 +144,9 @@
 	name:'user_view',
 	  data(){
 		  return{
+        searchInput: '',
+        selectDisable: false,
+        createAdmin: false,
         form: {
           clusters: []
         },
@@ -169,11 +173,32 @@
         user_name: '',
         role: '',
         tip: '',
+        createUserUrl: '/api/user/create?auth=',
+        ifAdminUrl: '/api/user/if_admin'
       }
     },
     created: function() {
       this.user_name = this.$cookies.get("user_name")
-      this.role = 'admin'
+      this.$http.get(this.ifAdminUrl, {withCredentials: true}).then((response) => {
+				if (response.status != 200){
+					this.$message.error({
+						message: '请求发送失败，请联系管理员'
+					})
+				}else{
+					var body = response.body
+					if (body.Rtn == 0){
+            if (body.Admin == true){
+              this.role = "admin"
+            } else {
+              this.role = "normal"
+            }
+					}else{
+						this.$message.error({
+                message: body.Msg
+							})
+          }
+        }
+      })
       if (this.role === 'admin') {
         this.tip = '管理员可以给新用户授权，并拥有所有集群的权限'
       }else {
@@ -185,21 +210,45 @@
         if (this.role != 'admin'){
           this.$alert('只用管理员用户可以创建新用户', '无法创建新用户', {
             confirmButtonText: '确定',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: `action: ${ action }`
-              });
-            }
           });
+        } else {
+          this.dialogFormVisible = true
         }
-        this.dialogFormVisible = true
       },
       resetForm() {
         this.dialogFormVisible = false;
       },
       submitForm() {
+        var auth = "admin"
+        if (!this.createAdmin){
+          auth = this.form.clusters.toString()
+        }
         this.dialogFormVisible = false;
+        this.$http.get(this.createUserUrl+auth, {withCredentials: true}).then((response) => {
+					if (response.status != 200){
+						this.$message.error({
+							message: '请求发送失败，请联系管理员'
+						})
+					}else{
+						var body = response.body
+						if (body.Rtn == 0){
+              this.$alert('验证码： ' + body.Token, '用户创建成功', {
+                confirmButtonText: '确定'
+              });
+						}else{
+							this.$message.error({
+                 message: body.Msg
+							 })
+						}
+				  }
+        })
+      },
+      switchAdmin() {
+        if (this.createAdmin == true) {
+          this.selectDisable = true
+        } else {
+          this.selectDisable = false
+        }
       }
     }
   }

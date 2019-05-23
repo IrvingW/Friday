@@ -15,7 +15,6 @@
                     <el-col :span="18">
                         <el-steps align-center :active="stepActive" finish-status="success">
                           <el-step title="步骤1" description="与Master节点建立连接"></el-step>
-                          <el-step title="步骤3" description="配置Kubernetes环境"></el-step>
                           <el-step title="步骤2" description="配置集群属性"></el-step>
                           <el-step title="步骤4" description="完成"></el-step>
                         </el-steps>
@@ -41,7 +40,6 @@
             master_id: -1,
             router_list: [
                 '/friday/home/add_cluster/master',
-                '/friday/home/add_cluster/kube_config',
                 '/friday/home/add_cluster/cluster_config',
                 '/friday/home/add_cluster/done'
             ],
@@ -50,13 +48,13 @@
       },
       methods: {
           changeStep(){
-              if (this.stepActive++ === 4){
+              if (this.stepActive++ === 3){
                   this.stepActive = 0
               }else {
-                  if (this.stepActive === 3){
+                  if (this.stepActive === 2){
                       this.message = "集群添加成功"
                   }
-                  this.$router.push({path: this.router_list[this.stepActive], params: {master_id: this.master_id}})
+                  this.$router.push({path: this.router_list[this.stepActive], query: {master_id: this.master_id}})
               }
           },
           setMasterId(master_id){

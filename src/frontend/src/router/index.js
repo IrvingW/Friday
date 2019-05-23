@@ -8,18 +8,18 @@ import IndexView from '@/components/Index'
 import UserView from '@/components/UserView'
 import TaskList from '@/components/TaskList'
 import ClusterView from '@/components/ClusterView'
-import ImageView from '@/components/ImageView'
+import RepoView from '@/components/RepoView'
 import MachineView from '@/components/MachineView'
 import ClusterList from '@/components/ClusterList'
 import NodeView from '@/components/NodeView'
 import AddCluster from '@/components/AddCluster'
 import AddMachine from '@/components/AddMachine'
 import ConfigCluster from '@/components/ConfigCluster'
-import ConfigKube from '@/components/ConfigKube'
 import Done from '@/components/Done'
 import CreateTask from '@/components/CreateTask'
 import UploadImage from '@/components/UploadImage'
-import ImageList from '@/components/ImageList'
+import RepoList from '@/components/RepoList'
+import CreateRepo from '@/components/CreateRepo'
 
 
 Vue.use(Router)
@@ -79,10 +79,6 @@ export default new Router({
               component: AddMachine
             },
             {
-              path: 'kube_config',
-              component: ConfigKube
-            },
-            {
               path: 'cluster_config',
               component: ConfigCluster
             },
@@ -105,12 +101,16 @@ export default new Router({
           component: NodeView
         },
         {
-          path: 'image_list',
-          component: ImageList
+          path: 'repo_list',
+          component: RepoList
         },
         {
-          path: 'image_view',
-          component: ImageView
+          path: 'repo_view',
+          component: RepoView
+        },
+        {
+          path: 'create_repo',
+          component: CreateRepo
         },
         {
           path: 'upload_image',

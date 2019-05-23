@@ -6,6 +6,9 @@
 		  <div id="login">
 			  <h2 class="login-title">用户注册</h2>
 			  <el-form label-width="100px" :model="registerForm" :rules="rules" ref="registerForm">
+			    <el-form-item label="验证码" prop="token">
+			      <el-input v-model="registerForm.token" clearable></el-input>
+			    </el-form-item>
 			    <el-form-item label="用户名" prop="username">
 			      <el-input v-model="registerForm.username" clearable></el-input>
 			    </el-form-item>
@@ -47,11 +50,16 @@
         };
 	      return {
 	        registerForm: {
+						token: '',
 	          username: '',
 						password: '',
 						ensure_pwd: '',
 					},
 	        rules:{
+						token: [
+	        		{required:true,message:'请输入验证码',trigger:'blur'},
+	        		{min:1,message:'验证码不能为空',trigger:'blur'}
+						],
 	        	username:[
 	        		{required:true,message:'请输入用户名',trigger:'blur'},
 	        		{min:1,message:'用户名不能为空',trigger:'blur'}
@@ -67,7 +75,7 @@
 							{validator: validatePass2, trigger: 'blur'}
 						]
 					},
-					register_url: "http://localhost:8080/api/user/register"
+					register_url: "/api/user/register"
 	      }
 		},
 		methods: {
@@ -80,7 +88,7 @@
 						this.$http.post(
 							this.register_url,
 							this.registerForm,
-							{emulateJSON:true}
+							{emulateJSON:true, withCredentials: true}
 						).then((response) => {
 							if (response.status != 200){
 								this.$message.error({
