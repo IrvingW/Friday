@@ -111,7 +111,7 @@
         this.$router.push({path: '/friday/home/upload_image', query: {repo_id: this.repoId}})
       },
       createTask(index, row) {
-        console.log(row.id)
+        this.$router.push({path: '/friday/home/create_task', query: {image_id: row.id}})
       }
     },
     created: function () {

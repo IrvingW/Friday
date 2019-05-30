@@ -25,9 +25,9 @@
           <i class="el-icon-document-copy"></i>
           <span slot="title">集群列表</span>
         </el-menu-item>
-        <el-menu-item index="/friday/home/node_view">
+        <el-menu-item index="/friday/home/resource_view">
           <i class="el-icon-s-platform"></i>
-          <span slot="title">节点列表</span>
+          <span slot="title">资源视图</span>
         </el-menu-item>
       </el-submenu>
       <el-submenu index="">

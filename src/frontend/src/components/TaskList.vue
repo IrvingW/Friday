@@ -12,21 +12,10 @@
               <!-- Main content -->
               <el-card shadow="hover" :body-style="{ padding: '20px' }">
                 <el-row class="select-row">
-                  <el-col :span="2"> <p>集群名称：</p> </el-col>
-                  <el-col :span="12">
-                      <el-select v-model="select_value" filterable placeholder="请选择集群" class="select">
-                        <el-option
-                          v-for="item in select_options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
-                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="cluster_list" stripe>
+                    <el-table :data="task_list" stripe>
                         <el-table-column v-for="col in columns"
                             :prop="col.id"
                             :key="col.id"
@@ -37,7 +26,7 @@
                         <el-table-column label="状态" width="120">
                             <template slot-scope="scope">
                               <el-tag :type="scope.row.status === 'error' ? 'error' : 'success'"
-                                disable-transitions>{{scope.row.status === 'error' ? '异常' : '健康'}}</el-tag>
+                                disable-transitions>{{scope.row.status === 'error' ? '异常' : '完成'}}</el-tag>
                             </template>
                         </el-table-column>
                         <el-table-column width="300">
@@ -48,14 +37,24 @@
                               placeholder="输入关键字搜索"/>
                           </template>
                           <template slot-scope="scope">
-                            <el-button size="normal" type="text" @click="showTaskList(scope.row.id)">任务列表</el-button>
-                            <el-button size="normal" type="text" @click="showNodeView(scope.$index, scope.row)">节点视图</el-button>
+                            <el-button size="normal" type="text">停止</el-button>
+                            <el-button size="normal" type="text" @click="showResult(scope.$index, scope.row)">查看结果</el-button>
                           </template>
                         </el-table-column>
                     </el-table>
                   </el-col>
                 </el-row>
               </el-card>
+
+              <el-dialog title="任务日志" :visible.sync="result_visible">
+                <el-input
+                  type="textarea" autosize
+                  v-model="result_log">
+                </el-input>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="result_visible = false">确 定</el-button>
+                  </div>
+              </el-dialog>
           </el-main>
       </el-container>
   </el-container>
@@ -66,46 +65,48 @@
 	  data(){
 		return{
             columns: [
-              {id: "name", label: "集群名称", "width": 150},
-              {id: "create_time", label: "创建时间", "width": 150},
-              {id: "description", label: "描述", "width": 330},
-              {id: "node_cnt", label: "节点数量", "width": 120},
-              {id: "submit_task", label: "历史任务", "width": 120},
-              {id: "running_task", label: "正在运行", "width": 120},
+              {id: "name", label: "任务名称", "width": 140},
+              {id: "creator", label: "创建者", "width": 140},
+              {id: "cluster", label: "运行集群", "width": 140},
+              {id: "create_time", label: "创建时间", "width": 140},
+              {id: "description", label: "任务描述", "width": 300},
+              //{id: "status", label: "状态", "width": 140},
             ],
-            cluster_list: [
-              {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-              {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-              {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
-              {id: 1, name: "dclab", create_time: "2019-5-3", description: "分布式实验室集群", node_cnt: 2, submit_task: 1, running_task: 0, status: "健康"},
+            task_list: [
             ],
-            select_options: [{
-              value: '选项1',
-              label: '黄金糕'
-            }, {
-              value: '选项2',
-              label: '双皮奶'
-            }, {
-              value: '选项3',
-              label: '蚵仔煎'
-            }, {
-              value: '选项4',
-              label: '龙须面'
-            }, {
-              value: '选项5',
-              label: '北京烤鸭'
-            }],
-            select_value: ''
+            searchTaskUrl: '/api/task/search?key=',
+            result_visible: false,
+            result_log: ""
 		}
     },
     methods: {
-        showTaskList(cluster_id) {
-            this.$router.push('/friday/home/task_list')
-        },
-        showNodeView(cluster_id) {
-          console.log("hahaha")
-            this.$router.push('/friday/home/node_view')
+        showResult(index, row) {
+          console.log(row.output)
+          this.result_log = row.output
+          this.result_visible = true
         }
+    },
+    created: function () {
+      this.$http.get(this.searchTaskUrl, {withCredentials: true}).then((response) => {
+			  if (response.status != 200){
+				  this.$message.error({
+					  message: '请求发送失败，请联系管理员'
+				  })
+			  }
+			  var body = response.body
+			  if (body.Rtn == 0){
+          this.task_list = body.Tasks
+          this.task_list.forEach(element => {
+            element.create_time = element.create_time.split("T")[0]
+            element.creator = element.creator.user_name
+            element.cluster = element.cluster.name
+          });
+			  }else {
+				  this.$message.error({
+                message: body.Msg
+              });
+            }
+      })
     }
   }
 </script>

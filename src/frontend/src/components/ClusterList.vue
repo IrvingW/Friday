@@ -39,7 +39,7 @@
                       </template>
                       <template slot-scope="scope">
                         <el-button size="normal" type="text" @click="showTaskList(scope.row.id)">任务列表</el-button>
-                        <el-button size="normal" type="text" @click="showNodeView(scope.$index, scope.row)">节点视图</el-button>
+                        <el-button size="normal" type="text" @click="showNodeView(scope.$index, scope.row)">资源视图</el-button>
                       </template>
                     </el-table-column>
                 </el-table>
@@ -74,7 +74,7 @@
 			  }
 			  var body = response.body
 			  if (body.Rtn == 0){
-          this.cluster_list = body.clusters
+          this.cluster_list = body.Clusters
           this.cluster_list.forEach(element => {
             element.create_time = element.create_time.split("T")[0]
             element.node_ctn = element.machines.length
@@ -91,7 +91,7 @@
             this.$router.push('/friday/home/task_list')
         },
         showNodeView(cluster_id) {
-            this.$router.push('/friday/home/node_view')
+            this.$router.push('/friday/home/resource_view')
         },
         addCluster() {
           this.$router.push('/friday/home/add_cluster')

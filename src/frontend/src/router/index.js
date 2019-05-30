@@ -11,7 +11,7 @@ import ClusterView from '@/components/ClusterView'
 import RepoView from '@/components/RepoView'
 import MachineView from '@/components/MachineView'
 import ClusterList from '@/components/ClusterList'
-import NodeView from '@/components/NodeView'
+import ResourceView from '@/components/ResourceView'
 import AddCluster from '@/components/AddCluster'
 import AddMachine from '@/components/AddMachine'
 import ConfigCluster from '@/components/ConfigCluster'
@@ -97,8 +97,8 @@ export default new Router({
           component: CreateTask
         },
         {
-          path: 'node_view',
-          component: NodeView
+          path: 'resource_view',
+          component: ResourceView
         },
         {
           path: 'repo_list',

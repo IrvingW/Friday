@@ -4,7 +4,7 @@
     <el-header>
       <!-- Header content -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/friday/home/node_view' }">节点列表</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/friday/home/resource_view' }">资源视图</el-breadcrumb-item>
           <el-breadcrumb-item> </el-breadcrumb-item>
         </el-breadcrumb>
     </el-header>
@@ -82,26 +82,28 @@
       cpu_usage: {
         columns: ['name', 'percent'],
         rows: [
-          {'name': '未使用(%)', 'percent': 90},
-          {'name': '已使用(%)', 'percent': 10}
+          {'name': '未使用(%)', 'percent': 87.2},
+          {'name': '已使用(%)', 'percent': 12.8}
         ]
       },
       memory_usage: {
         columns: ['name', 'count'],
         rows: [
-          {'name': '未使用(G)', 'count': 90},
-          {'name': '已使用(G)', 'count': 10}
+          {'name': '未使用(G)', 'count': 98.3},
+          {'name': '已使用(G)', 'count': 1.7}
         ]
       },
       disk_usage: {
         columns: ['name', 'count'],
         rows: [
-          {'name': '未使用(G)', 'count': 90},
-          {'name': '已使用(G)', 'count': 10}
+          {'name': '未使用(G)', 'count': 49},
+          {'name': '已使用(G)', 'count': 51}
         ]
       },
       node_list:[
-        {ip: "192.168.0.1", role: "master", cpu_cnt: 4, cpu_usage: 15, memory_usage: 14, disk_usage: 45, status: "normal"}
+        {ip: "192.168.1.116", role: "master", cpu_cnt: 4, cpu_usage: 24, memory_usage: 2, disk_usage: 27, status: "normal"},
+        {ip: "192.168.1.108", role: "slave", cpu_cnt: 8, cpu_usage: 7, memory_usage: 1, disk_usage: 43, status: "normal"},
+        {ip: "192.168.1.194", role: "slave", cpu_cnt: 12, cpu_usage: 13, memory_usage: 1, disk_usage: 83, status: "normal"}
       ],
       columns: [
         {id: "ip", label: "IP", "width": 150},
@@ -113,19 +115,7 @@
       ],
       select_options: [{
         value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
+        label: 'dclab'
       }],
       select_value: ''
 		}

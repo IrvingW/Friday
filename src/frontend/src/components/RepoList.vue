@@ -19,12 +19,12 @@
             </div>
             <!-- card body -->
             <el-row style="margin-top: 10px">
-              <el-checkbox v-model="checked3" label="备选项1" border size="medium"></el-checkbox>
-              <el-checkbox v-model="checked4" label="备选项2" border size="medium"></el-checkbox>
+              <el-checkbox v-model="checked1" label="数据采集" border size="medium"></el-checkbox>
+              <el-checkbox v-model="checked2" label="批处理" border size="medium"></el-checkbox>
             </el-row>
             <el-row style="margin-top: 10px">
-              <el-checkbox v-model="checked3" label="备选项1" border size="medium"></el-checkbox>
-              <el-checkbox v-model="checked4" label="备选项2" border size="medium"></el-checkbox>
+              <el-checkbox v-model="checked3" label="流处理" border size="medium"></el-checkbox>
+              <el-checkbox v-model="checked4" label="服务型" border size="medium"></el-checkbox>
             </el-row>
           </el-card>
         </el-aside>
